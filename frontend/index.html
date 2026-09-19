@@ -44,6 +44,9 @@
       <button class="nav-item" id="nav-summarize" onclick="showTab('summarize')">
         <i class="fa-solid fa-file-lines"></i><span>Summarize Notes</span>
       </button>
+      <button class="nav-item" id="nav-diagram" onclick="showTab('diagram')">
+        <i class="fa-solid fa-image"></i><span>Explain Diagram</span>
+      </button>
       <button class="nav-item" id="nav-quiz" onclick="showTab('quiz')">
         <i class="fa-solid fa-list-check"></i><span>Practice Quiz</span>
       </button>
@@ -125,6 +128,7 @@
             <span class="tool-card-copy"><strong>Summarize Notes</strong><small>Turn long notes into useful key points.</small></span>
             <i class="fa-solid fa-chevron-right tool-arrow"></i>
           </button>
+          <button class="tool-card" onclick="openTool('diagram')"><i class="fa-solid fa-image"></i><span class="tool-card-copy"><strong>Explain Diagram</strong><small>Upload a chart, diagram, or educational image.</small></span></button>
           <button class="tool-card" onclick="openTool('quiz')">
             <span class="tool-card-icon green"><i class="fa-solid fa-list-check"></i></span>
             <span class="tool-card-copy"><strong>Practice Quiz</strong><small>Check what you actually remember.</small></span>
@@ -163,9 +167,29 @@
 
       <!-- Summarize -->
       <div class="tab-pane" id="tab-summarize">
-        <div class="page-header"><p class="eyebrow">STUDY TOOL</p><h1>Summarize <em>Notes</em></h1><p>Paste your notes and get the useful parts without the extra noise.</p></div>
-        <div class="card focus-card"><div class="card-title"><i class="fa-solid fa-file-lines"></i> Your notes</div><div class="field"><textarea id="s-text" placeholder="Paste lecture notes, textbook passages, or your own notes..."></textarea></div><div class="field"><label>How much detail?</label><select id="s-detail"><option value="short">Quick — key points only</option><option value="medium" selected>Balanced — easy to revise</option><option value="detailed">Detailed — structured notes</option></select></div><div class="action-row"><span class="shortcut-hint">Keep your notes focused for a better summary.</span><button class="btn btn-primary" id="btn-summarize" onclick="submitSummarize()"><div class="spinner"></div><span class="btn-label"><i class="fa-solid fa-wand-magic-sparkles"></i>&nbsp; Summarize</span></button></div></div>
-        <div class="error-msg" id="err-summarize"><i class="fa-solid fa-triangle-exclamation"></i><span></span></div><div class="output" id="out-summarize"><div class="output-header"><span class="output-label"><i class="fa-solid fa-align-left"></i>&nbsp; Summary</span><button class="btn btn-ghost" onclick="copyOutput('out-summarize')"><i class="fa-solid fa-copy"></i></button></div><div class="output-content" id="out-summarize-content"></div></div>
+        <div class="page-header"><p class="eyebrow">STUDY TOOL</p><h1>Summarize <em>Notes</em></h1><p>Paste notes or upload a PDF and get the useful parts without the extra noise.</p></div>
+        <div class="card focus-card">
+          <div class="card-title"><i class="fa-solid fa-file-lines"></i> Your notes</div>
+          <div class="field"><label>Paste notes</label><textarea id="s-text" placeholder="Paste lecture notes, textbook passages, or your own notes..."></textarea></div>
+          <div class="field"><label>Or upload a PDF</label><input type="file" id="s-pdf" accept="application/pdf" /></div>
+          <div class="field"><label>How much detail?</label><select id="s-detail"><option value="short">Quick — key points only</option><option value="medium" selected>Balanced — easy to revise</option><option value="detailed">Detailed — structured notes</option></select></div>
+          <div class="action-row"><span class="shortcut-hint">Paste text or choose a PDF — FutureMind handles either.</span><button class="btn btn-primary" id="btn-summarize" onclick="submitSummarize()"><div class="spinner"></div><span class="btn-label"><i class="fa-solid fa-wand-magic-sparkles"></i>&nbsp; Summarize</span></button></div>
+        </div>
+        <div class="error-msg" id="err-summarize"><i class="fa-solid fa-triangle-exclamation"></i><span></span></div>
+        <div class="output" id="out-summarize"><div class="output-header"><span class="output-label"><i class="fa-solid fa-align-left"></i>&nbsp; Summary</span><div><button class="btn btn-ghost" onclick="copyOutput('out-summarize')"><i class="fa-solid fa-copy"></i></button> <button class="btn btn-ghost" onclick="downloadSummaryPdf()"><i class="fa-solid fa-file-pdf"></i></button></div></div><div class="output-content" id="out-summarize-content"></div></div>
+      </div>
+
+      <!-- Diagram -->
+      <div class="tab-pane" id="tab-diagram">
+        <div class="page-header"><p class="eyebrow">VISUAL STUDY TOOL</p><h1>Explain a <em>Diagram</em></h1><p>Upload a chart, graph, biology diagram, circuit, UML, table, or other educational image.</p></div>
+        <div class="card focus-card">
+          <div class="card-title"><i class="fa-solid fa-image"></i> Your visual</div>
+          <div class="field"><label>Upload image</label><input type="file" id="diagram-image" accept="image/png,image/jpeg,image/webp,image/gif" /></div>
+          <div class="field"><label>What do you want to know? <span style="opacity:.6">(optional)</span></label><input type="text" id="diagram-prompt" placeholder="e.g. Explain this in simple terms for an exam." /></div>
+          <div class="action-row"><span class="shortcut-hint">FutureMind identifies the visual type automatically.</span><button class="btn btn-primary" id="btn-diagram" onclick="submitDiagram()"><div class="spinner"></div><span class="btn-label"><i class="fa-solid fa-eye"></i>&nbsp; Explain diagram</span></button></div>
+        </div>
+        <div class="error-msg" id="err-diagram"><i class="fa-solid fa-triangle-exclamation"></i><span></span></div>
+        <div class="output" id="out-diagram"><div class="output-header"><span class="output-label"><i class="fa-solid fa-graduation-cap"></i>&nbsp; Visual explanation</span><button class="btn btn-ghost" onclick="copyOutput('out-diagram')"><i class="fa-solid fa-copy"></i></button></div><div class="output-content" id="out-diagram-content"></div></div>
       </div>
 
       <!-- Quiz -->
@@ -330,28 +354,56 @@
   }
 
   async function submitSummarize() {
-    const text   = document.getElementById('s-text').value.trim();
+    const text = document.getElementById('s-text').value.trim();
+    const pdf = document.getElementById('s-pdf').files[0];
     const detail = document.getElementById('s-detail').value;
-    if (!text) return showError('summarize', 'Please paste some text to summarize.');
+    if (!text && !pdf) return showError('summarize', 'Paste notes or upload a PDF first.');
     clearError('summarize');
     setLoading('btn-summarize', true);
     try {
-      const res  = await fetch(getBase() + '/api/summarize', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ text, detail })
-      });
+      let res;
+      if (pdf) {
+        const fd = new FormData();
+        fd.append('file', pdf); fd.append('detail', detail);
+        res = await fetch(getBase() + '/api/summarize-pdf', { method: 'POST', body: fd });
+      } else {
+        res = await fetch(getBase() + '/api/summarize', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ text, detail }) });
+      }
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      const sc = document.getElementById('out-summarize-content');
-      sc.innerHTML = md(data.summary);
-      renderMath(sc);
+      document.getElementById('out-summarize-content').innerHTML = md(data.summary);
+      renderMath(document.getElementById('out-summarize-content'));
       showOutput('summarize');
     } catch (e) {
       showError('summarize', e.message || 'Server error.');
-    } finally {
-      setLoading('btn-summarize', false);
-    }
+    } finally { setLoading('btn-summarize', false); }
+  }
+
+  async function downloadSummaryPdf() {
+    const summary = document.getElementById('out-summarize-content').innerText.trim();
+    if (!summary) return;
+    try {
+      const res = await fetch(getBase() + '/api/summary-pdf', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({summary}) });
+      if (!res.ok) { const data = await res.json(); throw new Error(data.error || 'Could not create PDF.'); }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'futuremind-summary.pdf'; a.click(); URL.revokeObjectURL(url);
+    } catch (e) { showError('summarize', e.message || 'Could not download PDF.'); }
+  }
+
+  async function submitDiagram() {
+    const image = document.getElementById('diagram-image').files[0];
+    const prompt = document.getElementById('diagram-prompt').value.trim();
+    if (!image) return showError('diagram', 'Please upload an image first.');
+    clearError('diagram'); setLoading('btn-diagram', true);
+    try {
+      const fd = new FormData(); fd.append('image', image); fd.append('prompt', prompt || 'Explain this visual in simple student-friendly terms.');
+      const res = await fetch(getBase() + '/api/explain-diagram', { method:'POST', body:fd });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      const dc = document.getElementById('out-diagram-content'); dc.innerHTML = md(data.answer); renderMath(dc); showOutput('diagram');
+    } catch (e) { showError('diagram', e.message || 'Server error.'); }
+    finally { setLoading('btn-diagram', false); }
   }
 
   let quizData = [];
@@ -544,6 +596,7 @@
       const map = {
         doubts: submitDoubt,
         summarize: submitSummarize,
+        diagram: submitDiagram,
         quiz: submitQuiz,
         flashcards: submitFlashcards,
         studyplan: submitStudyPlan

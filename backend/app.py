@@ -19,7 +19,7 @@ if not api_key:
 
 # Initialize Groq client
 client = Groq(api_key=api_key)
-MODEL = "openai/gpt-oss-120b"
+MODEL = "llama-3.3-70b-versatile"
 
 
 # -----------------------------
@@ -39,6 +39,24 @@ def ask_groq(system_prompt, user_message, max_tokens=1500):
     except Exception as e:
         return f"Error while calling Groq API: {str(e)}"
 
+
+
+
+def ask_vision(image_data_url, user_prompt):
+    response = client.chat.completions.create(
+        model=VISION_MODEL,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": user_prompt},
+                    {"type": "image_url", "image_url": {"url": image_data_url}}
+                ]
+            }
+        ],
+        max_tokens=1800
+    )
+    return response.choices[0].message.content
 
 def parse_json_response(raw):
     """
@@ -132,6 +150,101 @@ def summarize_notes():
 # -----------------------------
 # 3. Generate Quiz
 # -----------------------------
+@app.route("/api/summarize-pdf", methods=["POST"])
+def summarize_pdf():
+    try:
+        pdf = request.files.get("file")
+        detail = request.form.get("detail", "medium")
+        if not pdf:
+            return jsonify({"error": "PDF file is required"}), 400
+        if not pdf.filename.lower().endswith(".pdf"):
+            return jsonify({"error": "Please upload a PDF file"}), 400
+        raw = pdf.read()
+        if len(raw) > 15 * 1024 * 1024:
+            return jsonify({"error": "PDF is too large. Please keep it under 15 MB."}), 400
+        reader = PdfReader(BytesIO(raw))
+        pages = []
+        for page in reader.pages:
+            text = page.extract_text() or ""
+            if text.strip():
+                pages.append(text.strip())
+        text = "\n\n".join(pages).strip()
+        if not text:
+            return jsonify({"error": "No readable text was found in this PDF. Scanned/image-only PDFs are not supported yet."}), 400
+        if len(text) > 50000:
+            text = text[:50000]
+        length_map = {
+            "short": "in 5-8 concise bullet points",
+            "medium": "with a short overview, key concepts, and important bullet points",
+            "detailed": "as structured study notes with headings, sub-points, key terms, and exam takeaways"
+        }
+        prompt = f"Summarize these student notes {length_map.get(detail, length_map['medium'])}. Preserve important facts and definitions.\n\n{text}"
+        summary = ask_groq("You are an academic summarization assistant. Be accurate, student-friendly, and use Markdown.", prompt, max_tokens=2500)
+        return jsonify({"summary": summary, "pages": len(reader.pages)})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/summary-pdf", methods=["POST"])
+def summary_pdf():
+    try:
+        data = request.get_json() or {}
+        summary = data.get("summary", "").strip()
+        if not summary:
+            return jsonify({"error": "Summary is required"}), 400
+        from reportlab.lib.pagesizes import A4
+        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+        from reportlab.lib.enums import TA_LEFT
+        from reportlab.lib import colors
+        buffer = BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=42, leftMargin=42, topMargin=42, bottomMargin=42)
+        styles = getSampleStyleSheet()
+        body = ParagraphStyle("FutureMindBody", parent=styles["BodyText"], fontSize=10.5, leading=15, alignment=TA_LEFT, spaceAfter=8)
+        story = [Paragraph("FutureMind — Study Summary", styles["Title"]), Spacer(1, 12)]
+        for line in summary.splitlines():
+            line = line.strip()
+            if not line:
+                story.append(Spacer(1, 6)); continue
+            clean = re.sub(r"^#{1,6}\s*", "", line)
+            clean = re.sub(r"^[-*]\s+", "• ", clean)
+            clean = clean.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            story.append(Paragraph(clean, body))
+        doc.build(story)
+        buffer.seek(0)
+        return send_file(buffer, mimetype="application/pdf", as_attachment=True, download_name="futuremind-summary.pdf")
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/explain-diagram", methods=["POST"])
+def explain_diagram():
+    try:
+        image = request.files.get("image")
+        prompt = request.form.get("prompt", "Explain this image for a student.").strip()
+        if not image:
+            return jsonify({"error": "Image is required"}), 400
+        allowed = {"image/png", "image/jpeg", "image/webp", "image/gif"}
+        if image.mimetype not in allowed:
+            return jsonify({"error": "Please upload a PNG, JPG, WEBP, or GIF image."}), 400
+        raw = image.read()
+        if len(raw) > 10 * 1024 * 1024:
+            return jsonify({"error": "Image is too large. Please keep it under 10 MB."}), 400
+        data_url = f"data:{image.mimetype};base64,{base64.b64encode(raw).decode('utf-8')}"
+        instruction = (
+            "You are FutureMind, a visual study tutor. Analyze the uploaded educational image. "
+            "Automatically identify whether it is a flowchart, chart/graph, biology/science diagram, "
+            "circuit, UML/architecture, table, math graph, or another educational visual. "
+            "Do not invent unreadable values. Give a clear student-friendly response in Markdown with: "
+            "1) Diagram type, 2) What it shows, 3) Key parts/data, 4) Important relationships, trends or steps, "
+            "5) Simple explanation, and 6) Exam point. " + prompt
+        )
+        answer = ask_vision(data_url, instruction)
+        return jsonify({"answer": answer, "model": VISION_MODEL})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route("/api/quiz", methods=["POST"])
 def generate_quiz():
     try:
