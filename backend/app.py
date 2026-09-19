@@ -59,7 +59,7 @@ hf_client = (
 # ============================================================
 
 MODEL = "openai/gpt-oss-120b"
-VISION_MODEL = "qwen/qwen3.6-27b"
+VISION_MODEL = "qwen/qwen3.8-27b"
 IMAGE_MODEL = "gpt-image-2"
 HF_IMAGE_MODEL = "black-forest-labs/FLUX.1-schnell"
 
