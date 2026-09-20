@@ -8,3 +8,5 @@ reportlab
 
 openai
 huggingface_hub
+
+PyMuPDF
