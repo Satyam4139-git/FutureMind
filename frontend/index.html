@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#FFF9F3" />
+  <meta name="theme-color" content="#F7F9F7" />
   <title>FutureMind â€” AI Study Companion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -446,52 +446,52 @@ body{background:var(--bg)}
     }
   }
 :root{
-  --bg:#FFF9F3;
+  --bg:#F7F9F7;
   --panel:#FFFDF9;
   --panel2:#FFF4EA;
   --card:#FFFFFF;
   --card2:#FFF7F0;
-  --border:#F1E4D8;
+  --border:#DCE7E1;
   --border2:#EAD6C6;
-  --text:#293241;
-  --muted:#6B7280;
+  --text:#24332D;
+  --muted:#66736D;
   --muted2:#9A8F86;
 
-  --green:#FF9B71;
-  --teal:#A78BFA;
-  --blue:#93C5FD;
+  --green:#176B4D;
+  --teal:#176B4D;
+  --blue:#176B4D;
   --purple:#C084FC;
-  --orange:#FBBF24;
+  --orange:#C89B3C;
   --danger:#EF6B73;
 
   --shadow:0 12px 35px rgba(120,80,50,.10);
   --radius:18px;
-  --api:#FF9B71;
+  --api:#176B4D;
 }
 
 body{
-  background:#FFF9F3 !important;
-  color:#293241 !important;
+  background:#F7F9F7 !important;
+  color:#24332D !important;
 }
 
 .sidebar{
   background:#FFFDF9 !important;
-  border-right:1px solid #F1E4D8 !important;
+  border-right:1px solid #DCE7E1 !important;
   box-shadow:4px 0 24px rgba(120,80,50,.05);
 }
 
 .brand{
-  border-bottom-color:#F1E4D8 !important;
+  border-bottom-color:#DCE7E1 !important;
 }
 
 .brand-mark{
-  background:#FF9B71 !important;
+  background:#176B4D !important;
   color:#FFFFFF !important;
 }
 
 .tool-card{
   background:#FFFFFF !important;
-  border-color:#F1E4D8 !important;
+  border-color:#DCE7E1 !important;
   box-shadow:0 8px 22px rgba(120,80,50,.06);
 }
 
@@ -505,14 +505,14 @@ input,
 textarea,
 select{
   background:#FFFFFF !important;
-  color:#293241 !important;
+  color:#24332D !important;
   border-color:#EAD6C6 !important;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-  border-color:#FF9B71 !important;
+  border-color:#176B4D !important;
   box-shadow:0 0 0 3px rgba(255,155,113,.14) !important;
 }
 
@@ -522,8 +522,8 @@ button{
 
 .btn-primary,
 button[type="submit"]{
-  background:#FF9B71 !important;
-  border-color:#FF9B71 !important;
+  background:#176B4D !important;
+  border-color:#176B4D !important;
   color:#FFFFFF !important;
 }
 
@@ -535,12 +535,12 @@ button[type="submit"]:hover{
 .fm-visual-card,
 .fm-answer-card{
   background:#FFFFFF !important;
-  border-color:#F1E4D8 !important;
+  border-color:#DCE7E1 !important;
   box-shadow:0 8px 24px rgba(120,80,50,.07);
 }
 
 .fm-answer-title{
-  color:#293241 !important;
+  color:#24332D !important;
 }
 
 .fm-visual-title,
@@ -551,21 +551,21 @@ button[type="submit"]:hover{
 .fm-flow-node{
   background:#FFF7F0 !important;
   border-color:#F3C8B5 !important;
-  color:#293241 !important;
+  color:#24332D !important;
 }
 
 .fm-flow-number{
-  background:#FF9B71 !important;
+  background:#176B4D !important;
   color:#FFFFFF !important;
 }
 
 .fm-concept-card{
   background:#FFF7F0 !important;
-  border-color:#F1E4D8 !important;
+  border-color:#DCE7E1 !important;
 }
 
 .fm-concept-number{
-  background:#A78BFA !important;
+  background:#176B4D !important;
   color:#FFFFFF !important;
 }
 
@@ -588,7 +588,7 @@ button[type="submit"]:hover{
 }
 
 .fm-table td{
-  border-color:#F1E4D8 !important;
+  border-color:#DCE7E1 !important;
 }
 
 .fm-pie-legend{
@@ -598,7 +598,7 @@ button[type="submit"]:hover{
 .fm-time-greeting{
   margin:0 0 18px;
   padding:18px 20px;
-  border:1px solid #F1E4D8;
+  border:1px solid #DCE7E1;
   border-radius:20px;
   background:linear-gradient(135deg,#FFFDF9 0%,#FFF1E8 100%);
   box-shadow:0 10px 28px rgba(120,80,50,.07);
@@ -608,7 +608,7 @@ button[type="submit"]:hover{
   font-family:var(--font-head);
   font-size:clamp(1.35rem,2.5vw,1.8rem);
   font-weight:800;
-  color:#293241;
+  color:#24332D;
   margin-bottom:3px;
 }
 
@@ -622,6 +622,283 @@ button[type="submit"]:hover{
     padding:15px 16px;
     border-radius:16px;
   }
+}
+
+/* =========================================================
+   FutureMind — Classic Academic Green Design
+   ========================================================= */
+
+:root {
+  --fm-academic-green: #176B4D;
+  --fm-academic-dark: #0F4D3A;
+  --fm-academic-light: #E8F3ED;
+  --fm-academic-bg: #F7F9F7;
+  --fm-academic-gold: #C89B3C;
+  --fm-academic-text: #24332D;
+  --fm-academic-muted: #66736D;
+  --fm-academic-border: #DCE7E1;
+}
+
+/* Page */
+body {
+  background: var(--fm-academic-bg) !important;
+  color: var(--fm-academic-text);
+}
+
+/* Main navigation/header */
+header,
+.navbar,
+.topbar,
+nav {
+  border-bottom-color: var(--fm-academic-border) !important;
+}
+
+/* Primary buttons */
+button.primary,
+.btn-primary,
+.primary-btn,
+button[type="submit"] {
+  background: var(--fm-academic-green) !important;
+  border-color: var(--fm-academic-green) !important;
+  color: #fff !important;
+}
+
+button.primary:hover,
+.btn-primary:hover,
+.primary-btn:hover,
+button[type="submit"]:hover {
+  background: var(--fm-academic-dark) !important;
+}
+
+/* Cards */
+.card,
+.tool-card,
+.feature-card,
+.panel,
+section {
+  border-color: var(--fm-academic-border);
+}
+
+/* Active navigation */
+.active,
+.nav-active,
+.active-nav {
+  background: var(--fm-academic-light) !important;
+  color: var(--fm-academic-green) !important;
+}
+
+/* Links */
+a {
+  color: var(--fm-academic-green);
+}
+
+/* Focus */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--fm-academic-green) !important;
+  box-shadow: 0 0 0 3px rgba(23,107,77,.12) !important;
+}
+
+/* Academic gold accent */
+.accent,
+.badge,
+.section-accent {
+  color: var(--fm-academic-gold);
+}
+
+/* Greeting */
+.fm-time-greeting {
+  background: linear-gradient(
+    135deg,
+    #FFFFFF 0%,
+    #E8F3ED 100%
+  ) !important;
+  border: 1px solid var(--fm-academic-border) !important;
+}
+
+.fm-time-greeting-title {
+  color: var(--fm-academic-dark) !important;
+}
+
+.fm-time-greeting-subtitle {
+  color: var(--fm-academic-muted) !important;
+}
+
+/* Adaptive answer */
+.fm-answer-card,
+.fm-visual-card {
+  border-color: var(--fm-academic-border) !important;
+}
+
+.fm-answer-heading,
+.fm-visual-title {
+  color: var(--fm-academic-dark) !important;
+}
+
+/* Inputs / AI question area */
+textarea,
+input {
+  background: #FFFFFF !important;
+  border-color: var(--fm-academic-border) !important;
+}
+
+/* Subtle academic hover */
+.card:hover,
+.tool-card:hover,
+.feature-card:hover {
+  border-color: rgba(23,107,77,.35) !important;
+}
+
+/* Keep the design restrained and academic */
+button,
+.card,
+.tool-card,
+.feature-card,
+.panel {
+  border-radius: 10px;
+}
+
+/* Gold should remain an accent, not the main color */
+.fm-gold,
+.gold {
+  color: var(--fm-academic-gold);
+}
+
+/* =========================================================
+   FutureMind — Classy Academic Education Theme
+   ========================================================= */
+
+:root {
+  --fm-academic-green: #176B4D;
+  --fm-academic-dark: #0F4D3A;
+  --fm-academic-light: #E8F3ED;
+  --fm-academic-bg: #F7F9F7;
+  --fm-academic-card: #FFFFFF;
+  --fm-academic-gold: #C89B3C;
+  --fm-academic-text: #24332D;
+  --fm-academic-muted: #66736D;
+  --fm-academic-border: #DCE7E1;
+}
+
+body {
+  background: #F7F9F7 !important;
+  color: #24332D !important;
+}
+
+button[type="submit"],
+.primary,
+.primary-btn,
+.btn-primary {
+  background: #176B4D !important;
+  border-color: #176B4D !important;
+  color: #FFFFFF !important;
+}
+
+button[type="submit"]:hover,
+.primary:hover,
+.primary-btn:hover,
+.btn-primary:hover {
+  background: #0F4D3A !important;
+}
+
+.active,
+.active-nav,
+.nav-active {
+  background: #E8F3ED !important;
+  color: #176B4D !important;
+}
+
+.card,
+.tool-card,
+.feature-card,
+.panel {
+  background: #FFFFFF !important;
+  border-color: #DCE7E1 !important;
+}
+
+input,
+textarea,
+select {
+  background: #FFFFFF !important;
+  border-color: #DCE7E1 !important;
+  color: #24332D !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #176B4D !important;
+  box-shadow: 0 0 0 3px rgba(23,107,77,.12) !important;
+}
+
+h1,
+h2,
+h3,
+.fm-time-greeting-title,
+.fm-answer-heading,
+.fm-visual-title {
+  color: #0F4D3A !important;
+}
+
+.fm-time-greeting-subtitle {
+  color: #66736D !important;
+}
+
+.fm-time-greeting {
+  background: linear-gradient(135deg, #FFFFFF 0%, #E8F3ED 100%) !important;
+  border: 1px solid #DCE7E1 !important;
+}
+
+.fm-gold,
+.gold {
+  color: #C89B3C !important;
+}
+
+a {
+  color: #176B4D;
+}
+
+.card:hover,
+.tool-card:hover,
+.feature-card:hover {
+  border-color: rgba(23,107,77,.35) !important;
+}
+
+.card,
+.tool-card,
+.feature-card,
+.panel,
+button {
+  border-radius: 10px;
+}
+
+.fm-answer-card,
+.fm-visual-card {
+  background: #FFFFFF !important;
+  border-color: #DCE7E1 !important;
+}
+
+.fm-flow-node {
+  border-color: #DCE7E1 !important;
+}
+
+.fm-flow-number {
+  background: #176B4D !important;
+  color: #FFFFFF !important;
+}
+
+.fm-table {
+  border-color: #DCE7E1 !important;
+}
+
+.fm-table th {
+  background: #E8F3ED !important;
+  color: #0F4D3A !important;
+}
+
+* {
+  scrollbar-color: #B8D4C6 #F7F9F7;
 }
 </style>
 </head>
@@ -1839,6 +2116,10 @@ button[type="submit"]:hover{
 </script>
 </body>
 </html>
+
+
+
+
 
 
 

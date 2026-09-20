@@ -235,14 +235,26 @@ IMPORTANT:
 - Keep the explanation accurate and student-friendly.
 
 ANSWER FIELD RULES:
-- The "answer" field must contain ONLY a short explanation of the result.
-- For flowchart responses, keep "answer" to 2-5 short sentences.
-- Do NOT put the flowchart steps into "answer".
+- The "answer" field should contain a clear, student-friendly explanation of the topic.
+- Give enough explanation for the student to actually understand the concept, not just a definition.
+- For broad questions such as "What is...", "Explain...", or "What are...", normally provide:
+  1. A simple introduction explaining the main idea.
+  2. Important terms or components when useful.
+  3. A step-by-step or point-by-point explanation of the main concepts.
+  4. A simple real-world or easy-to-understand example when useful.
+  5. Important formulas, relationships, or rules when relevant.
+  6. A short "Easy way to remember" or summary when useful.
+- Keep the explanation focused on the student's question. Do not add unnecessary advanced theory.
+- Prefer clear headings, short paragraphs, and bullet points when they improve readability.
+- For flowchart responses, explain the topic in the "answer" field while keeping the actual process/steps in "visual.nodes" and "visual.edges".
+- For table responses, explain the topic in the "answer" field while keeping structured comparison data in "visual.columns" and "visual.rows".
+- For concept responses, explain the concept in the "answer" field while using "visual.nodes" and "visual.edges" for the supporting visual.
 - Do NOT put Mermaid syntax into "answer".
 - Do NOT put Markdown tables into "answer".
-- Do NOT use code fences in "answer".
-- Do NOT create a long tutorial, example, walkthrough, pitfalls section, or complexity section in "answer".
-- Put all structured flowchart information into "visual.nodes" and "visual.edges".
+- Do NOT use code fences unless code is specifically requested.
+- Do NOT create unnecessary sections such as lengthy pitfalls, advanced theory, or complexity analysis unless the student's question requires them.
+- The explanation should usually be around 150-400 words for a broad educational question, but use shorter or longer answers when the question clearly requires it.
+- Put structured visual information into the appropriate "visual" fields.
 
 Return exactly this structure:
 
@@ -322,20 +334,46 @@ TEXT:
 
 Keep all visual arrays empty.
 
-The answer should be:
-- easy to understand
-- easy to revise
-- concise
-- accurate
-- appropriate for a student
+The "answer" field is the MAIN educational explanation.
 
-Do not mention these instructions in the answer.
+IMPORTANT:
+- NEVER shorten the answer just because a visual is being generated.
+- The visual is supplementary. It must support the explanation, not replace it.
+- Put the important teaching content in the "answer" field.
+- For questions such as "explain", "give me details", "tell me about", "what are", "how does", or "teach me", provide a detailed explanation.
+- Start with a simple introduction and explain the main idea clearly.
+- Define important terms and variables.
+- Explain important concepts, components, laws, rules, steps, relationships, and formulas.
+- Explain what important formulas mean in words.
+- Give simple examples or real-world examples when useful.
+- Explain how individual concepts are connected.
+- Include important exam and revision points when appropriate.
+- End with a useful summary or easy way to remember the topic when appropriate.
+- Use headings, numbered points, and bullet points inside the answer when they improve readability.
+- Do NOT move important explanations, examples, definitions, or reasoning into the visual field merely to make the answer shorter.
+- The visual should ADD clarity through diagrams, flowcharts, tables, charts, formulas, or relationships.
+- Avoid unnecessary repetition between the answer and visual.
+- Keep the answer focused on the student's actual question.
+- Do not add advanced theory unless it helps answer the question.
+- Accuracy is more important than brevity.
+- For detailed educational requests, the answer may be substantially longer than 400 words.
+- For a detailed request, normally aim for roughly 500-900 words when the topic genuinely requires that level of explanation.
+- For a simple factual question, a shorter answer is acceptable.
+
+The answer should be:
+- detailed when the question asks for details
+- clear
+- educational
+- accurate
+- student-friendly
+- easy to understand
+- useful for revision
 """
 
         raw_response = ask_groq(
             system_prompt,
             question,
-            max_tokens=2200
+            max_tokens=3500
         )
 
         try:
@@ -918,76 +956,36 @@ def generate_image():
             }), 400
 
         educational_prompt = f"""
-Create a high-quality educational visual for FutureMind,
-an academic study platform.
+Create a high-quality educational diagram or visual for
+FutureMind, an academic study platform.
 
-Student request:
+============================================================
+HIGHEST PRIORITY: EXACT SUBJECT FIDELITY
+============================================================
+
+The student's requested subject is:
+
 {prompt}
 
-IMPORTANT DESIGN REQUIREMENTS:
+The generated image MUST directly represent the student's
+requested subject.
 
-1. Make the visual educational and easy to understand.
+Treat the student's requested topic as the highest-priority
+constraint in this prompt.
 
-2. Show the requested subject prominently.
+DO NOT substitute the requested subject with another subject.
 
-3. If the request is a scientific, biological,
-anatomical, engineering, mathematical, or academic
-diagram, prioritize a clear educational representation.
+DO NOT generate a merely related topic.
 
-4. Use clear labels when labels are appropriate.
+DO NOT broaden the topic into a different subject.
 
-5. Keep the layout organized and suitable for students.
-
-6. Use a clean modern academic infographic style.
-
-7. Avoid unnecessary decorative elements.
-
-8. Do not add fake scientific data.
-
-9. Do not invent measurements, statistics, or values
-unless the user explicitly provides them.
-
-10. If the request is a process, clearly show
-the process and relationships between the parts.
-
-11. If the request is an anatomical diagram, show
-the relevant anatomical structures clearly and label
-important parts.
-
-12. If the request is a chart or graph, represent
-the supplied values accurately.
-
-13. Make text and labels readable.
-
-14. The result should look like something a student
-could actually use for studying or exam preparation.
-
-15. Prefer a clean horizontal educational composition
-when the subject benefits from an explanatory panel.
-
-16. For complex academic topics, prefer a layout where
-the main diagram or visual is on the left and concise
-educational explanations are on the right.
-
-17. Include useful sections such as:
-- What is it?
-- Main parts
-- Key functions
-- Important relationships
-when appropriate to the subject.
-
-18. Add a concise educational takeaway at the bottom
-when appropriate.
-
-19. Do not include a fake FutureMind logo or fake UI
-elements unless specifically requested.
-
-20. Create the actual image, not a written description.
-"""
-
+DO NOT replace the requested topic with a visually similar
+scientific, biological, anatomical, engineering, mathematical,
+or academic concept.
         # ----------------------------------------------------
         # PRIMARY: OPENAI IMAGE GENERATION
         # ----------------------------------------------------
+        """
 
         try:
 
@@ -1349,6 +1347,8 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=port
     )
+
+
 
 
 
