@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#07100e" />
+  <meta name="theme-color" content="#FFF9F3" />
   <title>FutureMind â€” AI Study Companion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -444,7 +444,186 @@ body{background:var(--bg)}
       height: 160px;
       flex-basis: 160px;
     }
-  }</style>
+  }
+:root{
+  --bg:#FFF9F3;
+  --panel:#FFFDF9;
+  --panel2:#FFF4EA;
+  --card:#FFFFFF;
+  --card2:#FFF7F0;
+  --border:#F1E4D8;
+  --border2:#EAD6C6;
+  --text:#293241;
+  --muted:#6B7280;
+  --muted2:#9A8F86;
+
+  --green:#FF9B71;
+  --teal:#A78BFA;
+  --blue:#93C5FD;
+  --purple:#C084FC;
+  --orange:#FBBF24;
+  --danger:#EF6B73;
+
+  --shadow:0 12px 35px rgba(120,80,50,.10);
+  --radius:18px;
+  --api:#FF9B71;
+}
+
+body{
+  background:#FFF9F3 !important;
+  color:#293241 !important;
+}
+
+.sidebar{
+  background:#FFFDF9 !important;
+  border-right:1px solid #F1E4D8 !important;
+  box-shadow:4px 0 24px rgba(120,80,50,.05);
+}
+
+.brand{
+  border-bottom-color:#F1E4D8 !important;
+}
+
+.brand-mark{
+  background:#FF9B71 !important;
+  color:#FFFFFF !important;
+}
+
+.tool-card{
+  background:#FFFFFF !important;
+  border-color:#F1E4D8 !important;
+  box-shadow:0 8px 22px rgba(120,80,50,.06);
+}
+
+.tool-card:hover{
+  border-color:#FFB18F !important;
+  background:#FFF8F3 !important;
+  transform:translateY(-2px);
+}
+
+input,
+textarea,
+select{
+  background:#FFFFFF !important;
+  color:#293241 !important;
+  border-color:#EAD6C6 !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:#FF9B71 !important;
+  box-shadow:0 0 0 3px rgba(255,155,113,.14) !important;
+}
+
+button{
+  border-radius:12px;
+}
+
+.btn-primary,
+button[type="submit"]{
+  background:#FF9B71 !important;
+  border-color:#FF9B71 !important;
+  color:#FFFFFF !important;
+}
+
+.btn-primary:hover,
+button[type="submit"]:hover{
+  background:#F58A5F !important;
+}
+
+.fm-visual-card,
+.fm-answer-card{
+  background:#FFFFFF !important;
+  border-color:#F1E4D8 !important;
+  box-shadow:0 8px 24px rgba(120,80,50,.07);
+}
+
+.fm-answer-title{
+  color:#293241 !important;
+}
+
+.fm-visual-title,
+.fm-answer-heading{
+  color:#C96F4D !important;
+}
+
+.fm-flow-node{
+  background:#FFF7F0 !important;
+  border-color:#F3C8B5 !important;
+  color:#293241 !important;
+}
+
+.fm-flow-number{
+  background:#FF9B71 !important;
+  color:#FFFFFF !important;
+}
+
+.fm-concept-card{
+  background:#FFF7F0 !important;
+  border-color:#F1E4D8 !important;
+}
+
+.fm-concept-number{
+  background:#A78BFA !important;
+  color:#FFFFFF !important;
+}
+
+.fm-concept-title{
+  color:#43345F !important;
+}
+
+.fm-concept-detail,
+.fm-answer-text{
+  color:#4B5563 !important;
+}
+
+.fm-table{
+  background:#FFFFFF !important;
+}
+
+.fm-table th{
+  background:#FFF0E7 !important;
+  color:#7C4A38 !important;
+}
+
+.fm-table td{
+  border-color:#F1E4D8 !important;
+}
+
+.fm-pie-legend{
+  color:#4B5563 !important;
+}
+
+.fm-time-greeting{
+  margin:0 0 18px;
+  padding:18px 20px;
+  border:1px solid #F1E4D8;
+  border-radius:20px;
+  background:linear-gradient(135deg,#FFFDF9 0%,#FFF1E8 100%);
+  box-shadow:0 10px 28px rgba(120,80,50,.07);
+}
+
+.fm-time-greeting-title{
+  font-family:var(--font-head);
+  font-size:clamp(1.35rem,2.5vw,1.8rem);
+  font-weight:800;
+  color:#293241;
+  margin-bottom:3px;
+}
+
+.fm-time-greeting-subtitle{
+  color:#7C6F66;
+  font-size:.95rem;
+}
+
+@media(max-width:700px){
+  .fm-time-greeting{
+    padding:15px 16px;
+    border-radius:16px;
+  }
+}
+</style>
 </head>
 <body>
 <div class="app-shell">
@@ -1612,9 +1791,56 @@ body{background:var(--bg)}
       if (map[active]) map[active]();
     }
   });
+
+(function(){ function updateFutureMindGreeting(){
+    const existing = document.getElementById('fm-time-greeting');
+    if(existing) existing.remove();
+
+    const now = new Date();
+    const hour = now.getHours();
+
+    let greeting = '';
+    let emoji = '';
+
+    if(hour >= 5 && hour < 12){
+      greeting = 'Good morning, Student!';
+      emoji = '🌅';
+    }else if(hour >= 12 && hour < 18){
+      greeting = 'Good afternoon, Student!';
+      emoji = '☀️';
+    }else{
+      greeting = 'Good night, Student!';
+      emoji = '🌙';
+    }
+
+    const greetingBox = document.createElement('div');
+    greetingBox.id = 'fm-time-greeting';
+    greetingBox.className = 'fm-time-greeting';
+
+    greetingBox.innerHTML =
+      '<div class="fm-time-greeting-title">' +
+        greeting + ' ' + emoji +
+      '</div>' +
+      '<div class="fm-time-greeting-subtitle">' +
+        'What would you like to learn today?' +
+      '</div>';
+
+    const main = document.querySelector('main') || document.querySelector('.main');
+
+    if(main){
+      main.insertBefore(greetingBox, main.firstElementChild);
+    }
+  }
+
+  updateFutureMindGreeting();
+
+  setInterval(updateFutureMindGreeting, 60000);
+  })();
 </script>
 </body>
 </html>
+
+
 
 
 
