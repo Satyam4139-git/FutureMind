@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#F7F9F7" />
-  <title>FutureMind â€” AI Study Companion</title>
+  <meta name="theme-color" content="#F6FBFF" />
+  <title>FutureMind — AI Study Companion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -900,6 +900,222 @@ button {
 * {
   scrollbar-color: #B8D4C6 #F7F9F7;
 }
+
+/* =========================================================
+   FutureMind — Student Learning App UI
+   Reference-inspired cyan / yellow / coral design
+   ========================================================= */
+:root{
+  --fm-sky:#57C7F3;
+  --fm-sky-dark:#35AFE3;
+  --fm-sky-soft:#EAF8FF;
+  --fm-yellow:#FFC34D;
+  --fm-coral:#FF8B68;
+  --fm-mint:#5ED6D2;
+  --fm-lilac:#7481C9;
+  --fm-ink:#172235;
+  --fm-muted:#718095;
+  --fm-bg:#F6FBFF;
+  --fm-white:#FFFFFF;
+  --fm-line:#E5EDF5;
+  --fm-shadow:0 10px 28px rgba(75,132,176,.10);
+}
+
+html,body{background:var(--fm-bg)!important;color:var(--fm-ink)!important}
+body{font-family:'DM Sans',sans-serif!important}
+.app-shell{display:block!important;min-height:100vh;background:var(--fm-bg)}
+
+/* Top navigation — like the reference app header */
+.sidebar{
+  position:sticky!important;top:0!important;height:auto!important;min-height:74px!important;
+  z-index:30!important;display:flex!important;flex-direction:row!important;align-items:center!important;
+  gap:18px!important;padding:12px 28px!important;background:#fff!important;
+  border-right:0!important;border-bottom:1px solid var(--fm-line)!important;
+  box-shadow:0 3px 18px rgba(55,116,158,.07)!important;
+}
+.brand{border:0!important;margin:0!important;padding:0!important;flex:none!important;gap:10px!important}
+.brand-mark{width:42px!important;height:42px!important;border-radius:14px!important;background:var(--fm-sky)!important;color:#fff!important;box-shadow:0 7px 16px rgba(87,199,243,.25)!important}
+.brand-name{font-size:20px!important;color:var(--fm-ink)!important}
+.brand-name span{color:var(--fm-sky-dark)!important}
+.brand-subtitle{color:#8C9AAF!important}
+.sidebar-section{display:flex!important;align-items:center!important;gap:4px!important;margin:0!important}
+.sidebar-label{display:none!important}
+.nav-item{width:auto!important;margin:0!important;padding:10px 13px!important;border-radius:999px!important;color:#718095!important;background:transparent!important;font-size:12px!important;font-weight:600!important}
+.nav-item i{width:auto!important;font-size:12px!important}
+.nav-item:hover{background:#EFF9FF!important;color:var(--fm-sky-dark)!important}
+.nav-item.active{background:var(--fm-sky-soft)!important;color:var(--fm-sky-dark)!important;box-shadow:none!important}
+.nav-item.active i{color:var(--fm-sky-dark)!important}
+.sidebar-help{margin-left:auto!important;margin-top:0!important;padding:8px 12px!important;border:0!important;border-radius:999px!important;background:#FFF8E8!important;display:flex!important}
+.sidebar-help .help-icon{width:27px!important;height:27px!important;background:#FFE9AD!important;color:#E4A326!important}
+.sidebar-help strong{font-size:11px!important;color:#6D5A32!important}
+.sidebar-help p{display:none!important}
+
+.content-shell{background:var(--fm-bg)!important;min-width:0!important}
+.topbar{
+  height:72px!important;position:sticky!important;top:74px!important;
+  padding:12px 34px!important;background:rgba(246,251,255,.94)!important;
+  border-bottom:0!important;backdrop-filter:blur(12px)!important;z-index:20!important;
+}
+.topbar-search{
+  width:min(650px,70vw)!important;height:44px!important;background:#fff!important;
+  border:1px solid #E5EDF5!important;border-radius:999px!important;padding:0 15px!important;
+  box-shadow:0 5px 18px rgba(75,132,176,.07)!important;color:#93A0B0!important;
+}
+.topbar-search input{color:var(--fm-ink)!important;font-size:13px!important}
+.topbar-search input::placeholder{color:#9AA6B5!important}
+.topbar-search:focus-within{border-color:#A9E2FA!important;box-shadow:0 0 0 4px rgba(87,199,243,.10)!important}
+.topbar-search kbd{display:none!important}
+.topbar-right{color:#7D8B9E!important}
+.status-dot{background:#59D6A2!important;box-shadow:none!important}
+
+.main{max-width:1220px!important;padding:26px 34px 60px!important}
+.fm-time-greeting{
+  border:0!important;border-radius:0!important;padding:0!important;margin:0 0 5px!important;
+  background:transparent!important;box-shadow:none!important;
+}
+.fm-time-greeting-title{font-family:'DM Sans',sans-serif!important;font-size:14px!important;font-weight:500!important;color:#8A98A9!important;margin:0!important}
+.fm-time-greeting-subtitle{display:none!important}
+.welcome-row{margin-bottom:18px!important;align-items:flex-start!important}
+.eyebrow{font-size:10px!important;letter-spacing:.12em!important;color:#9AA6B5!important;margin-bottom:5px!important}
+.welcome-row h1,.page-header h1{font-family:'DM Sans',sans-serif!important;font-size:30px!important;font-weight:800!important;letter-spacing:-.04em!important;color:var(--fm-ink)!important}
+.welcome-row h1 em,.page-header h1 em{color:var(--fm-sky-dark)!important}
+.muted,.page-header>p:last-child{color:#7C8A9D!important}
+.date-pill{background:#fff!important;border-color:var(--fm-line)!important;color:#7D8B9E!important;border-radius:999px!important;box-shadow:var(--fm-shadow)!important}
+
+/* Large learning/search card */
+.hero-card{
+  background:linear-gradient(135deg,#E8F8FF 0%,#D9F3FF 62%,#FFF4D8 100%)!important;
+  border:0!important;border-radius:24px!important;padding:22px!important;
+  box-shadow:var(--fm-shadow)!important;margin-bottom:25px!important;overflow:hidden!important;
+}
+.hero-copy{margin-bottom:15px!important;align-items:center!important}
+.hero-icon{width:46px!important;height:46px!important;border-radius:16px!important;background:#fff!important;color:var(--fm-sky-dark)!important;box-shadow:0 6px 18px rgba(87,199,243,.14)!important}
+.hero-kicker{color:#6C91A8!important;font-size:9px!important}
+.hero-copy h2{font-family:'DM Sans',sans-serif!important;color:var(--fm-ink)!important;font-size:20px!important;font-weight:800!important}
+.hero-copy p:last-child{color:#6F8092!important}
+.hero-input input{background:#fff!important;border:0!important;border-radius:999px!important;color:var(--fm-ink)!important;padding:13px 16px!important;box-shadow:0 5px 16px rgba(55,116,158,.06)!important}
+.hero-input input:focus{border:0!important;box-shadow:0 0 0 4px rgba(87,199,243,.12)!important}
+.btn{border-radius:999px!important;padding:10px 18px!important}
+.btn-primary{background:var(--fm-sky)!important;border-color:var(--fm-sky)!important;color:#fff!important;box-shadow:0 7px 16px rgba(87,199,243,.22)!important}
+.btn-primary:hover{background:var(--fm-sky-dark)!important;filter:none!important;transform:translateY(-1px)!important}
+.suggestions{gap:8px!important}
+.suggestions button{background:#fff!important;border:0!important;color:#6B7B8F!important;border-radius:999px!important;padding:7px 12px!important;box-shadow:0 3px 10px rgba(55,116,158,.06)!important}
+.suggestions button:hover{color:var(--fm-sky-dark)!important;border:0!important}
+
+.section-heading{margin:0 0 12px!important}
+.section-heading h2{font-family:'DM Sans',sans-serif!important;font-size:20px!important;font-weight:800!important;color:var(--fm-ink)!important}
+.section-heading p{color:#8A98A9!important}
+
+/* Course cards */
+.tool-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+.tool-card{
+  min-height:142px!important;border:0!important;border-radius:20px!important;padding:16px!important;
+  display:flex!important;align-items:flex-end!important;position:relative!important;overflow:hidden!important;
+  box-shadow:var(--fm-shadow)!important;color:#fff!important;
+}
+.tool-card::before{content:'';position:absolute;right:-25px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.20)}
+.tool-card::after{content:'';position:absolute;right:20px;top:17px;width:54px;height:54px;border-radius:18px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.34)}
+.tool-card:hover{transform:translateY(-3px)!important;border:0!important;background:inherit!important;box-shadow:0 14px 28px rgba(75,132,176,.15)!important}
+.tool-card.tool-wide{grid-column:span 2;min-height:155px}
+.tool-card:nth-child(1){background:linear-gradient(135deg,#56C6F3,#37B4E8)!important}
+.tool-card:nth-child(2){background:linear-gradient(135deg,#7481C9,#6673BD)!important}
+.tool-card:nth-child(3){background:linear-gradient(135deg,#55D5D1,#42C7C4)!important}
+.tool-card:nth-child(4){background:linear-gradient(135deg,#FFC34D,#F3AE2E)!important}
+.tool-card:nth-child(5){background:linear-gradient(135deg,#8D97D8,#7680C8)!important}
+.tool-card:nth-child(6){background:linear-gradient(135deg,#FF9A73,#F4865E)!important}
+.tool-card:nth-child(7){background:linear-gradient(135deg,#57C7F3,#42B6E6)!important}
+.tool-card-icon{position:absolute!important;right:25px!important;top:22px!important;width:52px!important;height:52px!important;border-radius:17px!important;background:rgba(255,255,255,.18)!important;color:#fff!important;z-index:2!important;font-size:20px!important}
+.tool-card-icon.cyan,.tool-card-icon.purple,.tool-card-icon.green,.tool-card-icon.orange,.tool-card-icon.blue{background:rgba(255,255,255,.18)!important;color:#fff!important}
+.tool-card-copy{position:relative!important;z-index:3!important;max-width:72%!important}
+.tool-card-copy strong{font-size:15px!important;color:#fff!important;font-weight:800!important}
+.tool-card-copy small{font-size:10px!important;color:rgba(255,255,255,.88)!important;line-height:1.35!important;margin-top:4px!important}
+.tool-arrow{position:relative!important;z-index:3!important;color:rgba(255,255,255,.86)!important}
+.comfort-card{background:#fff!important;border:1px solid var(--fm-line)!important;border-radius:18px!important;box-shadow:var(--fm-shadow)!important}
+.comfort-symbol{background:#E8FFF4!important;color:#49BF91!important}
+.comfort-card strong{color:var(--fm-ink)!important}
+.comfort-card p{color:#7B899A!important}
+
+/* All study-tool pages */
+.page-header{margin-bottom:18px!important}
+.page-header h1{font-size:29px!important}
+.card,.output,.quiz-q,.flashcard-front,.fm-visual-card,.fm-answer-card{
+  background:#fff!important;border:1px solid var(--fm-line)!important;border-radius:20px!important;
+  box-shadow:var(--fm-shadow)!important;
+}
+.card-title{font-family:'DM Sans',sans-serif!important;color:var(--fm-ink)!important;font-size:14px!important}
+.card-title i,.output-label{color:var(--fm-sky-dark)!important}
+.field label{color:#7A899B!important}
+.field input,.field textarea,.field select{background:#FBFDFF!important;color:var(--fm-ink)!important;border-color:var(--fm-line)!important;border-radius:13px!important}
+.field textarea{min-height:155px!important}
+input:focus,textarea:focus,select:focus{border-color:#A8E3FA!important;box-shadow:0 0 0 4px rgba(87,199,243,.10)!important}
+.btn-ghost{background:#fff!important;color:#718095!important;border-color:var(--fm-line)!important}
+.btn-ghost:hover{color:var(--fm-sky-dark)!important;border-color:#B7E7FA!important}
+.output{background:#fff!important}
+.output-content{color:#344256!important}
+.output-content h1,.output-content h2,.output-content h3{color:var(--fm-ink)!important}
+.output-content h2{color:var(--fm-sky-dark)!important}
+.output-content strong{color:#187CA9!important}
+.output-content code{background:#EFF9FF!important;color:#1685B8!important}
+.output-content pre{background:#F4FAFD!important;border-color:var(--fm-line)!important}
+.response-actions{border-top-color:var(--fm-line)!important}
+.response-actions button{background:#fff!important;border-color:var(--fm-line)!important;color:#718095!important;border-radius:999px!important}
+.quiz-q{background:#fff!important}
+.quiz-q-num{color:var(--fm-sky-dark)!important}
+.quiz-option{border-color:var(--fm-line)!important;color:#6F7F91!important;border-radius:13px!important}
+.quiz-option:hover{border-color:#A8E3FA!important;background:#F2FBFF!important;color:var(--fm-ink)!important}
+.quiz-option.correct{border-color:#64D2A1!important;background:#ECFFF6!important;color:#2E9E70!important}
+.flashcard-front{background:#fff!important}
+.flashcard-back{background:linear-gradient(135deg,#EAF8FF,#FFF6DA)!important;border-color:#CDEDFB!important}
+.flashcard-front .flashcard-text,.flashcard-back .flashcard-text{color:var(--fm-ink)!important}
+.badge{background:#FFF6D9!important;color:#B88317!important;border-color:#F4D98B!important}
+.error-msg{background:#FFF1F1!important;border-color:#F6C8C8!important;color:#D05C66!important}
+
+/* Adaptive answer cards retain the new visual language */
+.fm-answer-card,.fm-visual-card{background:#fff!important;border-color:var(--fm-line)!important}
+.fm-flow-node{background:#F4FBFF!important;border-color:#CDECF9!important;color:var(--fm-ink)!important}
+.fm-flow-number,.fm-concept-number{background:var(--fm-sky)!important;color:#fff!important}
+.fm-concept-card{background:#FFF9E9!important;border-color:#F5E0A5!important}
+.fm-concept-title{color:#5E638C!important}
+.fm-concept-detail,.fm-answer-text{color:#566477!important}
+.fm-table th{background:#EAF8FF!important;color:#24779B!important}
+.fm-table td{border-color:var(--fm-line)!important}
+
+@media(max-width:900px){
+  .tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .tool-card.tool-wide{grid-column:span 2}
+}
+@media(max-width:760px){
+  .sidebar{position:sticky!important;top:0!important;min-height:64px!important;padding:9px 12px!important;gap:8px!important;overflow-x:auto!important}
+  .brand{min-width:max-content!important}
+  .brand-subtitle{display:none!important}
+  .sidebar-section{flex:none!important}
+  .sidebar-help{display:none!important}
+  .nav-item{padding:9px 10px!important;font-size:11px!important}
+  .nav-item span{display:none!important}
+  .nav-item i{font-size:15px!important}
+  .topbar{top:64px!important;height:66px!important;padding:10px 14px!important}
+  .topbar-search{width:100%!important}
+  .topbar-right{display:none!important}
+  .main{padding:18px 14px 34px!important}
+  .welcome-row{flex-direction:column!important}
+  .welcome-row h1{font-size:26px!important}
+  .hero-input{flex-direction:column!important}
+  .hero-input .btn{width:100%!important}
+  .tool-grid{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .tool-card,.tool-card.tool-wide{grid-column:span 1!important;min-height:138px!important;padding:13px!important}
+  .tool-card.tool-wide{grid-column:span 2!important}
+  .tool-card-copy{max-width:78%!important}
+  .tool-card-copy strong{font-size:13px!important}
+  .tool-card-icon{right:14px!important;top:14px!important;width:43px!important;height:43px!important;font-size:16px!important}
+}
+@media(max-width:480px){
+  .brand-name{font-size:17px!important}
+  .tool-grid{grid-template-columns:1fr!important}
+  .tool-card,.tool-card.tool-wide{grid-column:span 1!important}
+  .hero-card{padding:18px!important;border-radius:20px!important}
+  .section-heading h2{font-size:18px!important}
+}
+
 </style>
 </head>
 <body>
@@ -971,9 +1187,9 @@ button {
       <div class="tab-pane active" id="tab-dashboard">
         <div class="welcome-row">
           <div>
-            <p class="eyebrow">YOUR STUDY SPACE</p>
-            <h1>What do you need help with <em>today?</em></h1>
-            <p class="muted">Tell FutureMind what you're stuck on. We'll help you take the next step.</p>
+            <p class="eyebrow">WELCOME BACK</p>
+            <h1>Hello, <em>Student</em> 👋</h1>
+            <p class="muted">Find a lesson, ask a question, or continue your study journey.</p>
           </div>
           <div class="date-pill"><i class="fa-regular fa-clock"></i> Study mode</div>
         </div>
@@ -988,20 +1204,20 @@ button {
             </div>
           </div>
           <div class="hero-input">
-            <input id="quick-question-dashboard" type="text" placeholder="e.g. Explain recursion like I'm a beginner..." onkeydown="if(event.key==='Enter'){document.getElementById('quick-question').value=this.value; quickAsk();}" />
+            <input id="quick-question-dashboard" type="text" placeholder="Search a topic or ask FutureMind anything..." onkeydown="if(event.key==='Enter'){document.getElementById('quick-question').value=this.value; quickAsk();}" />
             <button class="btn btn-primary" onclick="document.getElementById('quick-question').value=document.getElementById('quick-question-dashboard').value; quickAsk()">
-              <i class="fa-solid fa-arrow-right"></i><span>Ask now</span>
+              <i class="fa-solid fa-arrow-right"></i><span>Start learning</span>
             </button>
           </div>
           <div class="suggestions">
-            <button onclick="document.getElementById('quick-question-dashboard').value='Explain this in simple terms'; document.getElementById('quick-question-dashboard').focus()">Explain simply</button>
-            <button onclick="document.getElementById('quick-question-dashboard').value='Give me an example of this topic'; document.getElementById('quick-question-dashboard').focus()">Give an example</button>
-            <button onclick="openTool('quiz')">Quiz me</button>
+            <button onclick="document.getElementById('quick-question-dashboard').value='Explain this in simple terms'; document.getElementById('quick-question-dashboard').focus()">All topics</button>
+            <button onclick="document.getElementById('quick-question-dashboard').value='Give me an example of this topic'; document.getElementById('quick-question-dashboard').focus()">Popular</button>
+            <button onclick="openTool('quiz')">Practice</button>
           </div>
         </section>
 
         <div class="section-heading">
-          <div><h2>Study tools</h2><p>Choose only what you need.</p></div>
+          <div><h2>Courses</h2><p>Choose something to learn today.</p></div>
         </div>
 
         <div class="tool-grid">
@@ -1067,7 +1283,7 @@ button {
           <div class="field"><label>Paste notes</label><textarea id="s-text" placeholder="Paste lecture notes, textbook passages, or your own notes..."></textarea></div>
           <div class="field"><label>Or upload a PDF</label><input type="file" id="s-pdf" accept="application/pdf" /></div>
           <div class="field"><label>How much detail?</label><select id="s-detail"><option value="short">Quick — key points only</option><option value="medium" selected>Balanced — easy to revise</option><option value="detailed">Detailed — structured notes</option></select></div>
-          <div class="action-row"><span class="shortcut-hint">Paste text or choose a PDF â€” FutureMind handles either.</span><button class="btn btn-primary" id="btn-summarize" onclick="submitSummarize()"><div class="spinner"></div><span class="btn-label"><i class="fa-solid fa-wand-magic-sparkles"></i>&nbsp; Summarize</span></button></div>
+          <div class="action-row"><span class="shortcut-hint">Paste text or choose a PDF — FutureMind handles either.</span><button class="btn btn-primary" id="btn-summarize" onclick="submitSummarize()"><div class="spinner"></div><span class="btn-label"><i class="fa-solid fa-wand-magic-sparkles"></i>&nbsp; Summarize</span></button></div>
         </div>
         <div class="error-msg" id="err-summarize"><i class="fa-solid fa-triangle-exclamation"></i><span></span></div>
         <div class="output" id="out-summarize"><div class="output-header"><span class="output-label"><i class="fa-solid fa-align-left"></i>&nbsp; Summary</span><div><button class="btn btn-ghost" onclick="copyOutput('out-summarize')"><i class="fa-solid fa-copy"></i></button> <button class="btn btn-ghost" onclick="downloadSummaryPdf()"><i class="fa-solid fa-file-pdf"></i></button></div></div><div class="output-content" id="out-summarize-content"></div></div>
@@ -1941,12 +2157,12 @@ button {
     const parent = el.parentElement;
     if (parent.querySelector('.correct') || parent.querySelector('.wrong')) return;
 
-    const isCorrect = chosen.includes('âœ“') || chosen === correct;
+    const isCorrect = chosen.includes('✓') || chosen === correct;
     el.classList.add(isCorrect ? 'correct' : 'wrong');
 
     if (!isCorrect) {
       Array.from(parent.children).forEach(opt => {
-        if (opt.textContent.includes('âœ“') || opt.textContent === correct) {
+        if (opt.textContent.includes('✓') || opt.textContent === correct) {
           opt.classList.add('correct');
         }
       });
